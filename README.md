@@ -1,5 +1,58 @@
-# BMW-e87-e90-can-bt
-Small project of reversing BMW E90 and E87 models CAN bus line messages. Capturing them with ESP32 board and sending them via Bluetooth to Android\IOS smartphone. My particular usecase were: remapping useless steering wheel buttons for something useful.
+
+# BMW E87/E90 CAN Bus and Bluetooth Integration
+
+This project is focused on **reverse engineering the BMW E90 and E87 CAN bus** line messages using an **ESP32 board**. It captures these messages and sends them via Bluetooth to Android/iOS smartphones, primarily aimed at **remapping the steering wheel buttons** for custom functions.
+
+## Features
+- **CAN Bus Message Reversing**: Capture CAN bus messages from BMW E90/E87 models.
+- **Bluetooth Communication**: Send the captured data via Bluetooth to smartphones.
+- **ESP32 Integration**: Uses an ESP32 microcontroller for hardware interfacing.
+- **Steering Wheel Button Remapping**: Customize and remap unused steering wheel buttons for more functional operations.
+
+## CAN Bus Message Breakdown
+The project documents various **CAN message codes** for different devices connected to the vehicle's CAN bus, including:
+- **Torque, Clutch, Brake Status**
+- **Engine RPM & Throttle Position**
+- **Steering Wheel Position**
+- **Individual Wheel Speeds**
+- **Door Status (Unlocked, Open)**
+- **Ignition and Key Status**
+- **Battery Voltage & Charge Status**
+
+For a complete list, refer to the message codes section in this repository.
+
+## Tech Stack
+- **ESP32 Microcontroller**: Main controller for capturing CAN bus messages.
+- **Bluetooth Communication**: For transmitting data to smartphones.
+- **C & CMake**: Used for programming and compiling the code.
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/llilakoblock/bmw-e87-e90-can-bt.git
+   ```
+2. Open the project in **PlatformIO** or another supported environment.
+3. Flash the firmware to the ESP32 microcontroller:
+   ```bash
+   platformio run --target upload
+   ```
+
+## Usage
+1. Install the necessary hardware in the vehicle (ESP32 connected to CAN bus).
+2. Connect your Android/iOS device to the ESP32 via Bluetooth.
+3. Customize steering wheel buttons or monitor CAN bus messages on the smartphone app.
+
+## Future Enhancements
+- **Further CAN Bus Integration**: Explore additional vehicle systems (e.g., HVAC, lighting).
+- **Advanced Button Mapping**: Enhance steering wheel button functionality with more custom mappings.
+- **Enhanced Bluetooth Communication**: Improve the interface with the smartphone app for smoother operation.
+
+## Contributing
+Feel free to contribute to this project by forking the repo, submitting issues, or creating pull requests. Contributions can range from bug fixes, new features, or improving documentation.
+
+## License
+This project is licensed under the **MIT License**.
+
 
 CAN message codes for different car devieces connected to canbus:
 
