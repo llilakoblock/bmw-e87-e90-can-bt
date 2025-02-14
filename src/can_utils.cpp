@@ -5,27 +5,33 @@
 
 #include "log_utils.h"
 
-void can_setup(CAN_device_t &CAN_cfg) {
-  CAN_cfg.speed = CAN_SPEED;
-  CAN_cfg.tx_pin_id = CAN_TX;
-  CAN_cfg.rx_pin_id = CAN_RX;
-  CAN_cfg.rx_queue = xQueueCreate(CAN_QUEUE_LENGTH, sizeof(CAN_frame_t));
+// TWAI Configuration
+void can_setup() {
+  twai_general_config_t g_config =
+      TWAI_GENERAL_CONFIG_DEFAULT(CAN_TX, CAN_RX, TWAI_MODE_NORMAL);
+  twai_timing_config_t t_config =
+      TWAI_TIMING_CONFIG_100KBITS();  // Match `CAN_SPEED_100KBPS`
+  twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
 
-  if (ESP32Can.CANInit() == 0) {
-    LOG_DEBUG("CAN initialized successfully");
+  if (twai_driver_install(&g_config, &t_config, &f_config) == ESP_OK) {
+    LOG_INFO("TWAI Driver installed");
   } else {
-    LOG_ERROR("Failed to initialize CAN");
+    LOG_ERROR("Failed to install TWAI Driver");
+  }
+
+  if (twai_start() == ESP_OK) {
+    LOG_INFO("TWAI Driver started");
+  } else {
+    LOG_ERROR("Failed to start TWAI Driver");
   }
 }
 
-void can_receive(CAN_device_t &CAN_cfg, BleKeyboard &bleKeyboard) {
-  CAN_frame_t frame;
-
-  if (xQueueReceive(CAN_cfg.rx_queue, &frame, 3 * portTICK_PERIOD_MS) ==
-      pdTRUE) {
-    if (frame.MsgID == 0x1D6) {
-      uint8_t command = frame.data.u8[0];
-      uint8_t subcommand = frame.data.u8[1];
+void can_receive(BleKeyboard &bleKeyboard) {
+  twai_message_t message;
+  if (twai_receive(&message, pdMS_TO_TICKS(3)) == ESP_OK) {
+    if (message.identifier == 0x1D6) {
+      uint8_t command = message.data[0];
+      uint8_t subcommand = message.data[1];
 
       switch (command) {
         case 0xC0:
