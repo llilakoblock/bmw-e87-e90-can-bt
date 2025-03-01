@@ -125,3 +125,34 @@ CAN message codes for different car devieces connected to canbus:
 | 0x581      | 8         | 40 4D 00 28 FF FF FF FF            | 064 077 000 040 255 255 255 255           | Seatbelt Status                                      |        |         | Y         |           |           |
 | 0x7C3      | 8         | xx xx xx xx xx xx xx xx            | xxx xxx xxx xxx xxx xxx xxx xxx           | Keyfob (security, comfort and CBS data)              |        |         | Y         |           | CAS       |
 
+Reg = Register type, W = Writeable (the ID can be emulated by an external Can controller, whilst in the car with no adverse affects)
+
+Source Information
+Kombi = Instrument Cluster.
+Multi = Multiple sources.
+JBE = Junction Box Electronic Module
+CAS = Car Access System
+SZL = Steering column switch cluster (The SZL is on the 500KHz F-CAN bus. Data is passed onto the K-can via gateway module.)
+CON = idrive Controller
+DSC = Dynamic Stability Control
+
+Modules:
+| **Can-ID** | **Length** | **DATA Packet HEX**      | **DATA Packet DECIMAL**                  | **Register Description**                        | **Reg** |
+|------------|-----------|--------------------------|------------------------------------------|------------------------------------------------|---------|
+| 600        | 8         | F1 10 1F 5A 80 00 00 09  | 241 016 031 090 128 000 000 009          | JBBF, Junction Box Module                      |         |
+| 601        | 8         | F1 10 1F 5A 80 00 00 09  | 241 016 031 090 128 000 000 009          | MRS, Airbag                                    |         |
+| 640        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | CAS. CAS ELV. car access system                |         |
+| 641        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | DWA, AntiTheft Alarm System.                   |         |
+| 650        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | SINE, Siren And Tilt Sensor.                   |         |
+| 656        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | FZD, functional roof sensor                    |         |
+| 660        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | KOMBI, Instrument Cluster                      |         |
+| 664        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | PDC, Rear Parking Sensors                      |         |
+| 672        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | FRM, Footwell module                           |         |
+| 678        | 8         | F1 10 1F 5A 80 00 00 06  | 241 016 031 090 128 000 000 006          | KLIMA, Climate control                         |         |
+
+PT-CAN (500 kHz)
+| **Can-ID** | **Length** | **DATA Packet HEX**      | **DATA Packet DECIMAL**                  | **Register Description**   | **Reg** |
+|------------|-----------|--------------------------|------------------------------------------|----------------------------|---------|
+| 612        | 8         | F1 10 3C 5A 80 00 00 08  | 241 016 060 090 128 000 000 008          | DDE 6.0 N47 module         |         |
+| 617        | 8         | F1 10 1F 5A 80 00 00 09  | 241 016 031 090 128 000 000 009          | EKP                        |         |
+| 629        | 8         | F1 10 1F 5A 80 00 00 09  | 241 016 031 090 128 000 000 009          | ABS, DSC                   |         |
